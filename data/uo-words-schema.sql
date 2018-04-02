@@ -1,0 +1,36 @@
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS `word_type` (
+	`word_type_id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`type`	TEXT NOT NULL,
+	`created_at`	TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS `word_count` (
+	`word_count_id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`word_id`	INTEGER NOT NULL,
+	`count`	INTEGER NOT NULL DEFAULT 0,
+	`created_at`	TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS `word` (
+	`word_id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`word_text`	TEXT NOT NULL UNIQUE,
+	`word_type_id`	INTEGER NOT NULL DEFAULT 0,
+	`created_at`	TEXT
+);
+CREATE TABLE IF NOT EXISTS `phrase_word` (
+	`phrase_word_id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`phrase_id`	INTEGER NOT NULL,
+	`word_id`	INTEGER NOT NULL,
+	`created_at`	TEXT
+);
+CREATE TABLE IF NOT EXISTS `phrase` (
+	`phrase_id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`phrase_text`	TEXT,
+	`created_at`	TEXT
+);
+CREATE TABLE IF NOT EXISTS `ignore_list` (
+	`ignore_list_id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	`word_text`	TEXT NOT NULL,
+	`disabled`	INTEGER DEFAULT 1,
+	`ignore_phrase`	INTEGER DEFAULT 1
+);
+COMMIT;
